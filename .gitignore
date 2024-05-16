@@ -1,3 +1,2 @@
 *.png
-*.txt
 __pycache__/nn.cpython-311.pyc

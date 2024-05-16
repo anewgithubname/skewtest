@@ -95,7 +95,7 @@ np.random.seed(42) # to ensure reproducibility
 # np.random.shuffle(indices)
 
 # pick 1000 operation points as the test set
-test_indices = np.array([0])
+test_indices = np.array([0, 1, 2, 3])
 
 # transform the indices to the actual data points
 # 41 data points for each operation point
@@ -125,7 +125,8 @@ if not os.path.exists(prediction_folder):
 model.eval()
 
 # randomly select 100 samples from the test set
-indices = random.sample(range(len(test_dataset)), 40)
+# indices = random.sample(range(len(test_dataset)), 40)
+indices = np.arange(0, 10)
 
 # load test samples
 test_samples = [test_dataset[i] for i in indices]

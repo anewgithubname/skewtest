@@ -86,13 +86,13 @@ dataset = CustomDataset(dataset_folder)
 np.random.seed(42) # to ensure reproducibility
 
 # create an array of indices
-indices = np.arange(1197)
+# indices = np.arange(1197)
 
 # shuffle the indices
-np.random.shuffle(indices)
+# np.random.shuffle(indices)
 
 # pick 1000 operation points as the test set
-test_indices = indices[:1000]
+test_indices = np.array([0])
 
 # transform the indices to the actual data points
 # 41 data points for each operation point
@@ -122,7 +122,7 @@ if not os.path.exists(prediction_folder):
 model.eval()
 
 # randomly select 100 samples from the test set
-indices = random.sample(range(len(test_dataset)), 100)
+indices = random.sample(range(len(test_dataset)), 40)
 
 # load test samples
 test_samples = [test_dataset[i] for i in indices]

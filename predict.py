@@ -9,6 +9,7 @@ from torch.utils.data import DataLoader, Dataset, TensorDataset, random_split, S
 import matplotlib.pyplot as plt
 import numpy as np
 import random
+import streamlit as st
 
 # #relaesa VRAM
 # gc.collect()
@@ -16,6 +17,8 @@ import random
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # device = torch.device("mps")
+
+st.title('Uber pickups in NYC')
 
 # %%
 
@@ -152,23 +155,25 @@ for idx, (image_tensor, offset_label, extra_inputs, case_id) in enumerate(test_s
     hmax, hmin, bmax, bmin = extra_inputs[0].cpu().numpy()  # Move to CPU and convert to numpy
 
      # Visualize the image and prediction results
-    plt.figure(figsize=(6, 6))
-    plt.imshow(image_tensor.squeeze(0).numpy(), cmap='gray')  # Display the image
+    fig, ax = plt.subplots()
     plt.title(f"Case: {case_id}, Predicted Time: {predicted_offset:.2f}, Actual Time: {offset_label}\n"
               f"Hmax: {hmax:.4f}, Hmin: {hmin:.4f}, Bmax: {bmax:.4f}, Bmin: {bmin:.4f}")
-    plt.axis('off')  # axis off
+    ax.imshow(image_tensor.squeeze(0).numpy(), cmap='gray')  # Display the image
+    st.pyplot(fig)
+    # plt.axis('off')  # axis off
 
-    # Save the image
-    plt.savefig(os.path.join(prediction_folder, f'prediction_{case_id}_{idx}.png'))
-    plt.close()  # Close the plot
+    # # Save the image
+    # plt.savefig(os.path.join(prediction_folder, f'prediction_{case_id}_{idx}.png'))
+    # plt.close()  # Close the plot
 
 # Calculate average prediction error
 average_error = sum(prediction_errors) / len(prediction_errors)
+st.write(f"Average Error: {average_error:.4f}") 
 
-# Write the average error and individual predictions to a text file
-with open(os.path.join(prediction_folder, 'predictions.txt'), 'w') as f:
-    for error in prediction_errors:
-        f.write(f"{error}\n")
-    f.write(f"Average Error: {average_error:.4f}\n")  # Write average error at the end of the file
+# # Write the average error and individual predictions to a text file
+# with open(os.path.join(prediction_folder, 'predictions.txt'), 'w') as f:
+#     for error in prediction_errors:
+#         f.write(f"{error}\n")
+#     f.write(f"Average Error: {average_error:.4f}\n")  # Write average error at the end of the file
 
 # %%

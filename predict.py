@@ -116,17 +116,13 @@ model_path_load = './model/model_checkpoint_org_local.pth'
 model.load_state_dict(torch.load(model_path_load, map_location=torch.device('cpu')))
 
 # %% ############################################## Preduction
-# Create a folder to store the prediction images
-prediction_folder = './res'
-if not os.path.exists(prediction_folder):
-    os.makedirs(prediction_folder)
     
 # Set the model to evaluation mode
 model.eval()
 
 # randomly select 100 samples from the test set
 # indices = random.sample(range(len(test_dataset)), 40)
-indices = np.arange(0, 10)
+indices = np.arange(0,  10)
 
 # load test samples
 test_samples = [test_dataset[i] for i in indices]
@@ -161,20 +157,9 @@ for idx, (image_tensor, offset_label, extra_inputs, case_id) in enumerate(test_s
               f"Hmax: {hmax:.4f}, Hmin: {hmin:.4f}, Bmax: {bmax:.4f}, Bmin: {bmin:.4f}")
     ax.imshow(image_tensor.squeeze(0).numpy(), cmap='gray')  # Display the image
     st.pyplot(fig)
-    # plt.axis('off')  # axis off
-
-    # # Save the image
-    # plt.savefig(os.path.join(prediction_folder, f'prediction_{case_id}_{idx}.png'))
-    # plt.close()  # Close the plot
 
 # Calculate average prediction error
 average_error = sum(prediction_errors) / len(prediction_errors)
 st.write(f"Average Error: {average_error:.4f}") 
-
-# # Write the average error and individual predictions to a text file
-# with open(os.path.join(prediction_folder, 'predictions.txt'), 'w') as f:
-#     for error in prediction_errors:
-#         f.write(f"{error}\n")
-#     f.write(f"Average Error: {average_error:.4f}\n")  # Write average error at the end of the file
 
 # %%

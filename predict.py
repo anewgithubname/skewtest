@@ -78,7 +78,7 @@ class CustomDataset(Dataset):
         return image_tensor, offset_label, extra_inputs, case_id
 
 # set your dataset folder path
-dataset_folder = './data_truncated'
+dataset_folder = './data'
 dataset = CustomDataset(dataset_folder)
 
 # %% randomly pick 1000 operation points as the test set and the rest as the training set
@@ -115,12 +115,12 @@ test_loader = DataLoader(test_dataset, batch_size=197, shuffle=False)
 from nn import CNN
 
 model = CNN().to(device)
-model_path_load = './model_checkpoint_org_local.pth'
+model_path_load = './model/model_checkpoint_org_local.pth'
 model.load_state_dict(torch.load(model_path_load, map_location=torch.device('cpu')))
 
 # %% ############################################## Preduction
 # Create a folder to store the prediction images
-prediction_folder = './prediction_global+local'
+prediction_folder = './res'
 if not os.path.exists(prediction_folder):
     os.makedirs(prediction_folder)
     

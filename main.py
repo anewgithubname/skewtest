@@ -10,4 +10,4 @@ import numpy as np
 
 import torch
 
-# print(torch.tensor([1, 2, 3]))
+st.write(torch.tensor([1, 2, 3]))

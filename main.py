@@ -6,3 +6,6 @@ st.title('Uber pickups in NYC')
 
 # prediction code here
 
+import torch
+
+print(torch.tensor([1, 2, 3]))

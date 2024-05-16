@@ -8,6 +8,6 @@ st.title('Uber pickups in NYC')
 
 import numpy as np
 
-# import torch
+import torch
 
 # print(torch.tensor([1, 2, 3]))

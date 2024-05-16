@@ -94,20 +94,14 @@ np.random.shuffle(indices)
 # pick 1000 operation points as the test set
 test_indices = indices[:1000]
 
-# the rest as the training set
-train_indices = indices[1000:]
-
 # transform the indices to the actual data points
 # 41 data points for each operation point
 test_indices = np.hstack([np.arange(i * 41, i * 41 + 41) for i in test_indices])
-train_indices = np.hstack([np.arange(i * 41, i * 41 + 41) for i in train_indices])
 
 # create the training and test datasets
-train_dataset = Subset(dataset, train_indices)
 test_dataset = Subset(dataset, test_indices)
 
 # create data loaders
-train_loader = DataLoader(train_dataset, batch_size=500, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=197, shuffle=False)
 
 # %% ##############################################
